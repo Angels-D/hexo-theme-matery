@@ -5,7 +5,7 @@
 * 将功能集成到`_config.yml`中调用
 * ~~修改css样式，去除部分冗余~~
 
-[旧版中文说明](README_CN.md) [Old README](README_EN.md)
+[原版中文说明](README_CN.md) [Original README](README_EN.md)
 
 ## 详细内容
 

@@ -1,8 +1,13 @@
 <div class="dream">
     <% if (theme.dream.showTitle) { %>
-    <div class="title center-align">
-        <i class="far fa-lightbulb"></i>&nbsp;&nbsp;<%= theme.dream.title %>
-    </div>
+        <div class="title center-align">
+            <i class="far fa-lightbulb"></i>&nbsp;&nbsp;<%= theme.dream.title %>
+        </div>
+    <% } else { %>
+        <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        <div class="title center-align">
+            <i class="far fa-lightbulb"></i>&nbsp;&nbsp;<span id="jinrishici-sentence"></span>
+        </div>
     <% } %>
     <div class="row">
         <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1 center-align text">

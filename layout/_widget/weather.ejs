@@ -1,0 +1,33 @@
+
+<script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>
+<script>
+    WIDGET = {
+        "CONFIG": {
+            "background": "5",
+            "tmpColor": "FFFFFF",
+            "cityColor": "FFFFFF",
+            "aqiColor": "FFFFFF",
+            "shadow": "1",
+            "borderRadius": "15",
+            "fixed": "true",
+            "key": "<%- theme.weather.key %>"
+        }
+    }
+</script>
+
+<div id="he-plugin-simple"></div>
+<style>
+    @media only screen and (min-width: 993px) {
+        #he-plugin-simple {
+            z-index: 1;
+            left: 25%;
+            top: 35%;
+        }
+    }
+
+    @media only screen and (max-width: 992px) {
+        #he-plugin-simple {
+            display: none;
+        }
+    }
+</style>

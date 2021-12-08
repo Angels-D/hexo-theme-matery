@@ -1,0 +1,317 @@
+<!-- 页面整体效果 -->
+<style type="text/css" lang="css">
+    #loading-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(24, 24, 24, 0.7);
+        text-align: center;
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+
+    .fade-out {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+</style>
+<script>
+    (function () {
+        const loaded = function () {
+            setTimeout(function () {
+                const loader = document.getElementById("loading-container");
+                loader.className = "fade-out"; //使用渐隐的方法淡出loading page 
+                // document.getElementById("body-wrap").style.display="flex"; 
+                setTimeout(function () {
+                    loader.style.display = "none";
+                }, 2500);
+            }, <%- theme.loadingPages.time %>); //强制显示loading page 700ms
+        };
+        loaded();
+    })()
+</script>
+
+<!-- 时钟 + 文字 效果 -->
+<style>
+    #canvas {
+        display: block;
+        margin: 5vh auto;
+        border-radius: 50%;
+        box-shadow: 0 5px 14px black;
+        opacity: 0.7;
+    }
+
+    #load {
+        position: absolute;
+        width: 600px;
+        height: 36px;
+        left: 50%;
+        top: 70%;
+        margin-left: -300px;
+        overflow: visible;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+    }
+
+    #load div {
+        position: absolute;
+        width: 20px;
+        height: 36px;
+        opacity: 0;
+        font-family: Helvetica, Arial, sans-serif;
+        animation: move 2s linear infinite;
+        -o-animation: move 2s linear infinite;
+        -moz-animation: move 2s linear infinite;
+        -webkit-animation: move 2s linear infinite;
+        transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        color: #35C4F0;
+    }
+
+    #load div:nth-child(2) {
+        animation-delay: 0.2s;
+        -o-animation-delay: 0.2s;
+        -moz-animation-delay: 0.2s;
+        -webkit-animation-delay: 0.2s;
+    }
+
+    #load div:nth-child(3) {
+        animation-delay: 0.4s;
+        -o-animation-delay: 0.4s;
+        -webkit-animation-delay: 0.4s;
+        -webkit-animation-delay: 0.4s;
+    }
+
+    #load div:nth-child(4) {
+        animation-delay: 0.6s;
+        -o-animation-delay: 0.6s;
+        -moz-animation-delay: 0.6s;
+        -webkit-animation-delay: 0.6s;
+    }
+
+    #load div:nth-child(5) {
+        animation-delay: 0.8s;
+        -o-animation-delay: 0.8s;
+        -moz-animation-delay: 0.8s;
+        -webkit-animation-delay: 0.8s;
+    }
+
+    #load div:nth-child(6) {
+        animation-delay: 1s;
+        -o-animation-delay: 1s;
+        -moz-animation-delay: 1s;
+        -webkit-animation-delay: 1s;
+    }
+
+    #load div:nth-child(7) {
+        animation-delay: 1.2s;
+        -o-animation-delay: 1.2s;
+        -moz-animation-delay: 1.2s;
+        -webkit-animation-delay: 1.2s;
+    }
+
+    @keyframes move {
+        0% {
+            left: 0;
+            opacity: 0;
+        }
+
+        35% {
+            left: 41%;
+            -moz-transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+
+        65% {
+            left: 59%;
+            -moz-transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+
+        100% {
+            left: 100%;
+            -moz-transform: rotate(-180deg);
+            -webkit-transform: rotate(-180deg);
+            -o-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+            opacity: 0;
+        }
+    }
+
+    @-moz-keyframes move {
+        0% {
+            left: 0;
+            opacity: 0;
+        }
+
+        35% {
+            left: 41%;
+            -moz-transform: rotate(0deg);
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+
+        65% {
+            left: 59%;
+            -moz-transform: rotate(0deg);
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+
+        100% {
+            left: 100%;
+            -moz-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+            opacity: 0;
+        }
+    }
+
+    @-webkit-keyframes move {
+        0% {
+            left: 0;
+            opacity: 0;
+        }
+
+        35% {
+            left: 41%;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+
+        65% {
+            left: 59%;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+
+        100% {
+            left: 100%;
+            -webkit-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+            opacity: 0;
+        }
+    }
+
+    @-o-keyframes move {
+        0% {
+            left: 0;
+            opacity: 0;
+        }
+
+        35% {
+            left: 41%;
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+
+        65% {
+            left: 59%;
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+
+        100% {
+            left: 100%;
+            -o-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+            opacity: 0;
+        }
+    }
+</style>
+<script>
+        $(function () {
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        ctx.strokeStyle = '#28d1fa';
+
+        ctx.lineWidth = 10;
+        ctx.lineCap = 'round';
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = '#28d1fa';
+
+        function degToRad(degree) {
+            var factor = Math.PI / 180;
+            return degree * factor;
+        }
+
+        function renderTime() {
+
+            var now = new Date();
+            var today = now.toDateString();
+            var time = now.toLocaleTimeString();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var milliseconds = now.getMilliseconds();
+            var newSeconds = seconds + (milliseconds / 1000);
+
+            // Background
+            gradient = ctx.createRadialGradient(100, 100, 5, 100, 100, 150);
+            gradient.addColorStop(0, '#000000');
+            gradient.addColorStop(1, '#000000');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 200, 200);
+
+            // Hours
+            ctx.beginPath();
+            ctx.arc(100, 100, 85, degToRad(270), degToRad((hours * 30) - 90));
+            ctx.stroke();
+
+            // Minutes
+            ctx.beginPath();
+            ctx.arc(100, 100, 70, degToRad(270), degToRad((minutes * 6) - 90));
+            ctx.stroke();
+            // Seconds
+            ctx.beginPath();
+            ctx.arc(100, 100, 55, degToRad(270), degToRad((newSeconds * 6) - 90));
+            ctx.stroke();
+            // Date 
+            ctx.font = "12px Helvetica";
+            ctx.fillStyle = '#28d1fa';
+            ctx.fillText(today, 57, 100);
+
+            // Time
+            ctx.font = "9px Helvetica";
+            ctx.fillStyle = '#28d1fa';
+            ctx.fillText(time, 70, 115);
+
+        }
+        setInterval(renderTime, 20);
+    });
+</script>
+<div id="loading-container">
+    <canvas id="canvas" width="200" height="200"></canvas>
+    <div id="load">
+        <div>G</div>
+        <div>N</div>
+        <div>I</div>
+        <div>D</div>
+        <div>A</div>
+        <div>O</div>
+        <div>L</div>
+    </div>
+</div>

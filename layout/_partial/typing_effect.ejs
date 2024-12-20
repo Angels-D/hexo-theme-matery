@@ -1,0 +1,8 @@
+<% if (theme.typing_effect) { %>
+  <script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.activate_power_mode) %>"></script>
+  <script>
+    POWERMODE.colorful = <%- theme.typing_effect.colorful %>;
+    POWERMODE.shake = <%- theme.typing_effect.shake %>;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+<% } %>

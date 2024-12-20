@@ -1,0 +1,118 @@
+<link rel="stylesheet" href="<%- theme.jsDelivr.url %><%- url_for(theme.libs.css.dplayer) %>">
+<div class="video-player">
+    <% if (theme.video.showTitle) { %>
+    <div class="title center-align">
+        <i class="fas fa-video-camera"></i>&nbsp;&nbsp;<%= theme.live.title %>
+    </div>
+    <% } %>
+    <div class="row">
+        <div class="col l8 offset-l2 s12">
+            <div id="dplayer" class="dplayer-video"
+                    <% if (theme.live.height) { %> style="height: <%- theme.live.height %>px;"<% } %>></div>
+        </div>
+    </div>
+</div>
+<script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.flv) %>"></script>
+<script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.dplayer) %>"></script>
+<script>
+    $(function () {
+        const ws = new WebSocket('<%- theme.live.websocket %>');
+        var heartCheck = {
+            timeout: 540000,
+            timeoutObj: null,
+            serverTimeoutObj: null,
+            reset: function(){
+                clearTimeout(this.timeoutObj);
+                clearTimeout(this.serverTimeoutObj);
+                return this;
+            },
+            start: function(){
+                var self = this;
+                this.timeoutObj = setTimeout(function(){
+                    ws.send("ping");
+                    self.serverTimeoutObj = setTimeout(function(){
+                        ws.close();
+                    }, self.timeout)
+                }, this.timeout)
+            }
+        }
+        const dp = new DPlayer({
+            container: document.getElementById('dplayer'),
+            screenshot: true,
+            danmaku: true,
+            live: '<%- theme.live.live %>' === 'true',
+            autoplay: '<%- theme.live.autoplay %>' === 'true',
+            theme: '<%- theme.live.theme %>',
+            logo: '<%- theme.logo %>', 
+            loop: '<%- theme.live.loop %>' === 'true',
+            lang: '<%- config.language %>' === 'zh-CN' ? 'zh-cn' : 'en',
+            preload: '<%- theme.live.preload %>',
+            volume: Number('<%- theme.live.volume %>'),
+            video: {
+                url: '<% if (theme.live.url) { %><%- url_for(theme.live.url) %><% } %>',
+                pic: '<% if (theme.live.pic) { %><%- url_for(theme.live.pic) %><% } %>',
+                thumbnails: '<% if (theme.live.thumbnails) { %><%- url_for(theme.live.thumbnails) %><% } %>'
+            },
+            apiBackend: {
+                read: function (options) {
+                    ws.onopen = function(evt) {
+                        heartCheck.reset().start();
+                        options.success();
+                    };
+                },
+                send: function (options) {
+                    ws.send(JSON.stringify(options.data)); 
+                },
+            },
+        });
+        ws.onmessage = function (data) { 
+            heartCheck.reset().start();
+            dp.danmaku.draw(eval("(" + data.data + ")")); 
+        }
+    });
+</script>
+<style>
+    /* 1栏 小于584 */
+    @media only screen and (max-width: 584px) {
+        .navi-height {
+            height: 1300px;
+        }
+
+        .link-box {
+            margin-top: 5%;
+        }
+
+        .large-screen {
+            display: none;
+        }
+    }
+
+    /* 2栏 大于584 小于993px */
+    @media only screen and (min-width: 584px) and (max-width: 993px) {
+        .navi-height {
+            height: 800px;
+        }
+
+        .link-box {
+            margin-top: 5%;
+        }
+
+        .large-screen {
+            display: none;
+        }
+    }
+
+    /* 3栏 大于993px */
+    @media only screen and (min-width: 993px) {
+        .navi-height {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    /* 隐藏footer */
+    .page-footer {
+        display: none;
+    }
+</style>
